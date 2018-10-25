@@ -7,7 +7,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const itemInfoSchema = new Schema({
     item: { type: ObjectId, required: true },
     title: { type: String, required: true },
-    commentCount: { type: Number, require: true }
+    commentCount: { type: Number, required: true }
 });
 
 const boardSchema = new Schema({

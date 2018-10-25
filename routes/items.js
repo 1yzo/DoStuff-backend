@@ -27,7 +27,7 @@ router.put('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
     const { id } = req.params;
 
-    Item.find({ _id: id })
+    Item.findOne({ _id: id })
         .then(item => res.json(item))
         .catch(err => res.status(500).send(err));
 });

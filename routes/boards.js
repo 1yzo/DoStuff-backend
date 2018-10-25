@@ -19,7 +19,7 @@ router.put('/:id', (req, res) => {
     const { id } = req.params;
     const { updates } = req.body;
 
-    boards.find({ _id: id }).updateOne(updates)
+    Board.find({ _id: id }).updateOne(updates)
         .then(() => res.send('Success'))
         .catch(err => res.status(500).send(err));
 });
@@ -27,7 +27,7 @@ router.put('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
     const { id } = req.params;
 
-    Board.find({ _id: id })
+    Board.findOne({ _id: id })
         .then(board => res.json(board))
         .catch(err => res.status(500).send(err));
 });
