@@ -3,12 +3,31 @@ const router = express.Router();
 const Item = require('../models/item');
 
 router.post('/', (req, res) => {
+    const { title, details } = req.body; 
     const item = new Item({
-        title: 'Just testing things out',
-        details: 'Some test details',
-        comments: ['When does this have to be done by???']
+        title,
+        details
     });
-    item.save().then(item => res.json(item));
+    item.save()
+        .then(item => res.json(item))
+        .catch(err => res.status(500).send(err));
+});
+
+router.put('/:id', (req, res) => {
+    const { id } = req.params;
+    const updates = req.body;
+
+    Item.find({ _id: id }).updateOne(updates)
+        .then(() => res.send('Success'))
+        .catch(err => res.status(500).send(err));
+});
+
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Item.find({ _id: id })
+        .then(item => res.json(item))
+        .catch(err => res.status(500).send(err));
 });
 
 module.exports = router;
