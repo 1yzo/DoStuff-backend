@@ -3,10 +3,12 @@ const router = express.Router();
 const Item = require('../models/item');
 
 router.post('/', (req, res) => {
-    const { title, details } = req.body; 
+    const { title, details, index, color } = req.body; 
     const item = new Item({
         title,
-        details
+        details,
+        index,
+        color
     });
     item.save()
         .then(item => res.json(item))

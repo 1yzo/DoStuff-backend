@@ -24,4 +24,12 @@ router.put('/:id', (req, res) => {
         .catch(err => res.status(500).send(err));
 });
 
+router.get('/:id', (req, res) => {
+    const { id } = req.params;
+
+    Board.find({ _id: id })
+        .then(board => res.json(board))
+        .catch(err => res.status(500).send(err));
+});
+
 module.exports = router;
