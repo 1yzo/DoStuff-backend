@@ -17,8 +17,7 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    const { updates } = req.body;
-
+    const updates  = req.body;
     Board.find({ _id: id }).updateOne(updates)
         .then(() => res.send('Success'))
         .catch(err => res.status(500).send(err));

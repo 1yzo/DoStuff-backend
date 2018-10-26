@@ -9,7 +9,8 @@ const itemSchema = new Schema({
     index: { type: Number, required: true },
     color: { type: String, require: true },
     details: String,
-    comments: Array
+    comments: Array,
+    id: { type: String, required: true }
 });
 
 const boardSchema = new Schema({
@@ -21,3 +22,5 @@ const boardSchema = new Schema({
 const Board = mongoose.model('Board', boardSchema);
 
 module.exports = Board;
+
+// CHANGED THE SCHEMA RESTART BECUZ THE BOARD NEEDS TO KNOW INDEX AND COLOR RIGHT OFF THE BAT
