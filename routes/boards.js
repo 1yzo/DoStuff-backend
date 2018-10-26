@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
     const { id } = req.params;
 
     Board.findOne({ _id: id })
-        .then(board => res.json(board))
+        .then(board => board ? res.json(board) : res.status(400).send('Board does not exist'))
         .catch(err => res.status(500).send(err));
 });
 
