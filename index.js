@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const htmlparser = require('htmlparser');
 const fetch = require('node-fetch');
 const app = new express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const boards = require('./routes/boards');
 
@@ -36,9 +38,20 @@ app.post('/api/link_preview', (req, res) => {
             const parser = new htmlparser.Parser(handler);
             parser.parseComplete(body);
         });
-})
+});
+
+io.on('connection', (socket) => {
+    socket.on('new user', (boardId) => {
+        socket.join(boardId);
+    });
+
+    socket.on('update', (justDroppedId) => {
+        const boardId = Object.keys(socket.rooms)[1];
+        io.to(boardId).emit('update', { senderId: socket.id, justDroppedId });
+    });
+});
 
 const PORT = 3000;
-app.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log('Server running on port', PORT);
 });
