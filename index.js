@@ -37,7 +37,8 @@ app.post('/api/link_preview', (req, res) => {
             }, { verbose: false });
             const parser = new htmlparser.Parser(handler);
             parser.parseComplete(body);
-        });
+        })
+        .catch(() => undefined);
 });
 
 io.on('connection', (socket) => {
