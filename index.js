@@ -45,9 +45,9 @@ io.on('connection', (socket) => {
         socket.join(boardId);
     });
 
-    socket.on('update', () => {
+    socket.on('update', (justDroppedId) => {
         const boardId = Object.keys(socket.rooms)[1];
-        io.to(boardId).emit('update', socket.id);
+        io.to(boardId).emit('update', { senderId: socket.id, justDroppedId });
     });
 });
 
