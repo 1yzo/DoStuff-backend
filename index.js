@@ -38,7 +38,7 @@ app.post('/api/link_preview', (req, res) => {
             const parser = new htmlparser.Parser(handler);
             parser.parseComplete(body);
         })
-        .catch(() => undefined);
+        .catch(() => res.status(500).send('website does not exist'));
 });
 
 io.on('connection', (socket) => {
